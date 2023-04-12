@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "428215831742",
+    "project_id": "self-study-7a60b",
+    "storage_bucket": "self-study-7a60b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:428215831742:android:f050f62d0cba720959a2ef",
+        "android_client_info": {
+          "package_name": "com.sedu.selfstudy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "428215831742-e4hmltmug8803ftfga5rdgh3mgdk4bdj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlTGi7qpxpZqVLSf5xJ9IQyIdqYu9TGr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "428215831742-e4hmltmug8803ftfga5rdgh3mgdk4bdj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
