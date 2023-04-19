@@ -6,9 +6,11 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'dart:ui';
+import 'package:selfstudy/Store/sotre1.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'package:rive/rive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 final firestore = FirebaseFirestore.instance;
 final db = FirebaseFirestore.instance;
 
@@ -32,6 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
   late ScrollController _scrollController;
 
   getData() async {
+
+    var result = await firestore.collection('register').get();
+    for (var doc in result.docs){
+      context.read<Store1>().addUser(doc['ID'], doc['url']);
+      print(doc['ID']);
+      print(context.watch<Store1>().name);
+    }
+    
     // var result2 = await firestore.collection('collec').get();
 
     // Map<String, dynamic> jsonData = jsonDecode(result2);
@@ -71,6 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
     // var size = MediaQueryData.fromWindow(WidgetsBinding.instance.window).size.width ;
     var inputId = TextEditingController();
     var inputPW = TextEditingController();
+
 
 
     // ID유효성 검사를 실시하였으나 실패
@@ -166,7 +177,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 10),
                   TextField(
-                    onTap: (){
+                    onTap: ()async{
+
+                      var result = await firestore.collection('register').get();
+                      for (var doc in result.docs)  {
+
+                        var storage = await SharedPreferences.getInstance();
+                        storage.setString(doc['ID'], doc['url']);
+
+                        // var result = storage.get('YangMinJi');
+                        // print(result);
+                        // context.read<Store1>().addUser(doc['ID'], doc['url']);
+                        // print(doc['ID']);
+                        // print(doc['url']);
+                        // context.read<Store1>().addUser(doc['ID'], doc['url']);
+                        // context.read<Store1>().addUser('b', 'eff');
+
+                        // print("this is  watch {$context.watch<Store1>().users["KimJuYeong"]}');
+                      }
+
                       _scrollController.animateTo(120.0,
                           duration: Duration(milliseconds: 500),
                           curve: Curves.ease);
@@ -197,9 +226,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {
-
                         },
-                        child: const Text(
+                        child: Text(
+                          // context.watch<Store1>().users["KimJuYeong"].toString(),
                           "Forgot your password?",
                           textAlign: TextAlign.right,
                           style: TextStyle(decoration: TextDecoration.underline, color: Colors.black),
@@ -214,8 +243,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 50,
                     color: Colors.purple,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    onPressed: () {
+                    onPressed: () async{
                       // todo login
+
+
                       final docRef = db.collection("register").doc(inputId.text);
 
 
